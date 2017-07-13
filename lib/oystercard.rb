@@ -28,6 +28,10 @@ class Oystercard
     @journeys << @journey
   end
 
+  def in_journey?
+    !!@journey
+  end
+
   private
 
   def deduct(amount)

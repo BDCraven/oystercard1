@@ -37,6 +37,15 @@ describe Oystercard do
       expect { card.touch_in(entry_station) }.to raise_error "You have insufficient funds."
     end
 
+    #describe '#journey' do
+
+      #it 'contains information about zones' do
+      #  card.top_up(4)
+      #  card.touch_in(station)
+      #  expect(card.journey).to eq one_way_journey
+      #end
+    #end
+
     context 'in journey' do
 
       it 'stores a journey' do
@@ -44,6 +53,12 @@ describe Oystercard do
         card.touch_in(entry_station)
         card.touch_out(exit_station)
         expect(card.journeys).to include journey
+      end
+
+      it 'knows it is in journey' do
+        card.top_up(4)
+        card.touch_in(entry_station)
+        expect(card).to be_in_journey
       end
 
     end
