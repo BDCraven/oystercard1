@@ -84,6 +84,10 @@ describe Oystercard do
       expect { card.touch_out(exit_station) }.to change { card.balance }.by(-Oystercard::MINIMUM_FARE)
     end
 
+    it 'checks if current_journey is complete' do
+      card.touch_out(exit_station)
+      expect{ card.touch_out(exit_station) }.to change { card.balance }.by(-Journey::PENALTY)
+    end
   end
 
 end
