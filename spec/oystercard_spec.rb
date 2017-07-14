@@ -44,6 +44,11 @@ describe Oystercard do
       expect {card.touch_in(entry_station) }.to change { card.balance }.by(-6)
     end
 
+    it "won't deduct penalty if a penalty is being deducted on touch-out" do
+      card.top_up(Oystercard::MAXIMUM_BALANCE)
+      card.touch_out(exit_station)
+      expect {card.touch_in(entry_station) }.not_to change { card.balance }
+    end
     #describe '#journey' do
 
       #it 'contains information about zones' do
@@ -69,8 +74,9 @@ describe Oystercard do
       it 'knows it is in journey' do
         expect(card).to be_in_journey
       end
-
     end
+
+
   end
 
   describe '#touch_out' do

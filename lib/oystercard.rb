@@ -24,9 +24,19 @@ class Oystercard
   end
 
   def touch_out(station)
-    deduct(current_journey.fare) if current_journey.nil? || current_journey.complete?
+    (current_journey.nil? || current_journey.complete?) ? double_trouble(station) : valid_journey(station)
+  end
+
+  def valid_journey(station)
     current_journey.finish(station)
+    deduct(current_journey.fare)
     journeys << current_journey
+  end
+
+  def double_trouble(station)
+    current_journey.finish(nil)
+    deduct(current_journey.fare)
+    current_journey.finish(station)
   end
 
   def in_journey?
