@@ -18,7 +18,11 @@ describe Journey do
 
     it 'calculates the fare of a journey' do
       journey.finish(exit_station)
-      expect(journey.fare).to eq 1
+      expect(journey.fare).to eq Journey::MINIMUM_FARE
+    end
+
+    it 'returns a penalty if the journey is incomplete' do
+      expect(journey.fare).to eq Journey::PENALTY
     end
   end
 

@@ -38,6 +38,12 @@ describe Oystercard do
       expect { card.touch_in(entry_station) }.to raise_error "You have insufficient funds."
     end
 
+    it 'deducts a penalty if journey is not complete' do
+      card.top_up(Oystercard::MAXIMUM_BALANCE)
+      card.touch_in(entry_station)
+      expect {card.touch_in(entry_station) }.to change { card.balance }.by(-6)
+    end
+
     #describe '#journey' do
 
       #it 'contains information about zones' do
